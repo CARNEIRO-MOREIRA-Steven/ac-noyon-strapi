@@ -1,33 +1,5 @@
 import type { Struct, Schema } from '@strapi/strapi';
 
-export interface ApiEvenementEvenement extends Struct.CollectionTypeSchema {
-  collectionName: 'evenements';
-  info: {
-    singularName: 'evenement';
-    pluralName: 'evenements';
-    displayName: 'Evenement';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    date: Schema.Attribute.DateTime;
-    name: Schema.Attribute.String;
-    createdAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    publishedAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::evenement.evenement'
-    >;
-  };
-}
-
 export interface PluginUploadFile extends Struct.CollectionTypeSchema {
   collectionName: 'files';
   info: {
@@ -513,6 +485,68 @@ export interface PluginUsersPermissionsUser
   };
 }
 
+export interface ApiDerniersEvenementDerniersEvenement
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'derniers_evenements';
+  info: {
+    singularName: 'derniers-evenement';
+    pluralName: 'derniers-evenements';
+    displayName: 'DerniersEvenement';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Schema.Attribute.String;
+    date: Schema.Attribute.Date;
+    image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    description: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::derniers-evenement.derniers-evenement'
+    >;
+  };
+}
+
+export interface ApiEvenementEvenement extends Struct.CollectionTypeSchema {
+  collectionName: 'evenements';
+  info: {
+    singularName: 'evenement';
+    pluralName: 'evenements';
+    displayName: 'Evenement';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    date: Schema.Attribute.DateTime;
+    name: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::evenement.evenement'
+    >;
+  };
+}
+
 export interface AdminPermission extends Struct.CollectionTypeSchema {
   collectionName: 'admin_permissions';
   info: {
@@ -878,7 +912,6 @@ export interface AdminTransferTokenPermission
 declare module '@strapi/strapi' {
   export module Public {
     export interface ContentTypeSchemas {
-      'api::evenement.evenement': ApiEvenementEvenement;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::i18n.locale': PluginI18NLocale;
@@ -889,6 +922,8 @@ declare module '@strapi/strapi' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::derniers-evenement.derniers-evenement': ApiDerniersEvenementDerniersEvenement;
+      'api::evenement.evenement': ApiEvenementEvenement;
       'admin::permission': AdminPermission;
       'admin::user': AdminUser;
       'admin::role': AdminRole;
